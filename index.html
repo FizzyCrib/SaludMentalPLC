@@ -1,328 +1,213 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Test Informativo de Salud Mental</title>
-  <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#7dd3fc;--muted:#94a3b8}
-    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:linear-gradient(180deg,#071026 0%, #08122a 100%); color:#e6eef8; margin:0; padding:24px;}
-    .container{max-width:900px;margin:0 auto;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));border:1px solid rgba(255,255,255,0.03);padding:22px;border-radius:12px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
-    h1{margin:0 0 8px;font-size:20px}
-    p.lead{margin:0 0 18px;color:var(--muted)}
-    form{display:grid;gap:12px}
-    .q{background:rgba(255,255,255,0.02);padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.02)}
-    .q h3{margin:0 0 8px;font-size:15px}
-    .options{display:flex;gap:12px;flex-wrap:wrap}
-    label.option{background:rgba(255,255,255,0.01);padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.02);cursor:pointer;user-select:none}
-    input[type=radio]{margin-right:8px}
-    .actions{display:flex;gap:10px;align-items:center;margin-top:6px}
-    button{background:var(--accent);border:none;padding:8px 12px;border-radius:8px;cursor:pointer;color:#012233;font-weight:600}
-    button.secondary{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--accent)}
-    #result{margin-top:18px;padding:14px;border-radius:10px;background:linear-gradient(180deg, rgba(13,27,41,0.6), rgba(6,13,22,0.6));border:1px solid rgba(255,255,255,0.03)}
-    .tag{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);font-size:13px;margin-right:8px}
-    footer{margin-top:18px;color:var(--muted);font-size:13px}
-    @media (max-width:600px){.options{flex-direction:column}}
-  </style>
+<meta charset="UTF-8" />
+<title>Test Clínico de Balance Emocional</title>
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #DFF2FF;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        color: #0E385B;
+    }
+
+    .wrapper {
+        background: white;
+        width: 92%;
+        max-width: 880px;
+        margin-top: 40px;
+        padding: 35px;
+        border-radius: 22px;
+        border: 2px solid #A3D8FF;
+        box-shadow: 0 6px 22px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+        text-align: center;
+        color: #0C75C8;
+        font-size: 30px;
+        margin-bottom: 30px;
+        font-weight: 800;
+    }
+
+    .block {
+        background: #EFF8FF;
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 22px;
+        border-left: 6px solid #6EC3FF;
+    }
+
+    label {
+        display: block;
+        padding: 6px 0;
+        cursor: pointer;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        background:#56B7FF;
+        border-radius: 14px;
+        border: none;
+        font-size: 18px;
+        color: white;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    button:hover {
+        background:#3FA7F4;
+    }
+
+    #resultado {
+        margin-top: 30px;
+        padding: 25px;
+        background: #F4FAFF;
+        border-radius: 16px;
+        border: 2px solid #BDE5FF;
+    }
+
+    canvas {
+        margin-top: 20px;
+        max-height: 320px;
+        width: 100% !important;
+    }
+</style>
 </head>
 <body>
-  <div class="container">
-    <h1>Test orientativo de salud mental</h1>
-    <p class="lead">Contesta seleccionando una opción por pregunta. Esto es solo orientativo y <strong>no</strong> sustituye a una evaluación profesional.</p>
+<div class="wrapper">
+<h1>Evaluación Clínica de Balance Emocional</h1>
 
-    <form id="testForm">
-      <!-- 1 -->
-      <div class="q">
-        <h3>1. ¿Con qué frecuencia te preocupas demasiado por cosas pequeñas?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q1" value="A">A) Casi todos los días</label>
-          <label class="option"><input type="radio" name="q1" value="B">B) Varias veces a la semana</label>
-          <label class="option"><input type="radio" name="q1" value="C">C) Rara vez</label>
-          <label class="option"><input type="radio" name="q1" value="D">D) Nunca</label>
-        </div>
-      </div>
+<form id="formTest">
 
-      <!-- 2 -->
-      <div class="q">
-        <h3>2. ¿Cómo ha sido tu estado de ánimo últimamente?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q2" value="A">A) Muy bajo y sin ganas de nada</label>
-          <label class="option"><input type="radio" name="q2" value="B">B) Varía mucho</label>
-          <label class="option"><input type="radio" name="q2" value="C">C) Normal</label>
-          <label class="option"><input type="radio" name="q2" value="D">D) Bien, estable</label>
-        </div>
-      </div>
+<div class="block">
+<strong>1. ¿Cómo describirías tu claridad mental hoy?</strong>
+<label><input type="radio" name="q1" value="ansiedad"> Nublada y acelerada</label>
+<label><input type="radio" name="q1" value="depresion"> Lenta y pesada</label>
+<label><input type="radio" name="q1" value="tdah"> Dispersa</label>
+<label><input type="radio" name="q1" value="normal"> Clara</label>
+</div>
 
-      <!-- 3 -->
-      <div class="q">
-        <h3>3. ¿Has tenido recuerdos fuertes o traumáticos que te causen miedo o evitación?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q3" value="A">A) Muy seguido</label>
-          <label class="option"><input type="radio" name="q3" value="B">B) A veces</label>
-          <label class="option"><input type="radio" name="q3" value="C">C) Casi nunca</label>
-          <label class="option"><input type="radio" name="q3" value="D">D) No, nunca</label>
-        </div>
-      </div>
+<div class="block">
+<strong>2. ¿Qué tan fácil te es mantener hábitos o rutinas?</strong>
+<label><input type="radio" name="q2" value="tdah"> Complicado</label>
+<label><input type="radio" name="q2" value="estres"> A veces difícil</label>
+<label><input type="radio" name="q2" value="normal"> Bastante fácil</label>
+</div>
 
-      <!-- 4 -->
-      <div class="q">
-        <h3>4. ¿Qué tanto te cuesta concentrarte?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q4" value="A">A) Muchísimo, casi siempre</label>
-          <label class="option"><input type="radio" name="q4" value="B">B) A veces</label>
-          <label class="option"><input type="radio" name="q4" value="C">C) Sólo cuando estoy cansado</label>
-          <label class="option"><input type="radio" name="q4" value="D">D) Nada, me concentro bien</label>
-        </div>
-      </div>
+<div class="block">
+<strong>3. ¿Tus emociones cambian con rapidez?</strong>
+<label><input type="radio" name="q3" value="bipolaridad"> Mucho</label>
+<label><input type="radio" name="q3" value="tlp"> Muy intensas</label>
+<label><input type="radio" name="q3" value="normal"> No tanto</label>
+</div>
 
-      <!-- 5 -->
-      <div class="q">
-        <h3>5. ¿Tus emociones cambian bruscamente?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q5" value="A">A) Sí, de forma extrema</label>
-          <label class="option"><input type="radio" name="q5" value="B">B) A veces</label>
-          <label class="option"><input type="radio" name="q5" value="C">C) Poco</label>
-          <label class="option"><input type="radio" name="q5" value="D">D) No</label>
-        </div>
-      </div>
+<div class="block">
+<strong>4. ¿Qué tan presente está la preocupación en tu día?</strong>
+<label><input type="radio" name="q4" value="ansiedad"> Demasiado</label>
+<label><input type="radio" name="q4" value="toc"> Se vuelve repetitiva</label>
+<label><input type="radio" name="q4" value="normal"> Poco</label>
+</div>
 
-      <!-- 6 -->
-      <div class="q">
-        <h3>6. ¿Has tenido ataques de pánico (palpitaciones, miedo repentino)?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q6" value="A">A) Varias veces</label>
-          <label class="option"><input type="radio" name="q6" value="B">B) Una o dos veces</label>
-          <label class="option"><input type="radio" name="q6" value="C">C) Dudo que lo haya tenido</label>
-          <label class="option"><input type="radio" name="q6" value="D">D) Nunca</label>
-        </div>
-      </div>
+<div class="block">
+<strong>5. ¿Evitas ciertas actividades por sensaciones incómodas?</strong>
+<label><input type="radio" name="q5" value="fobia"> Sí, por miedo</label>
+<label><input type="radio" name="q5" value="tept"> Sí, por recuerdos</label>
+<label><input type="radio" name="q5" value="normal"> No</label>
+</div>
 
-      <!-- 7 -->
-      <div class="q">
-        <h3>7. ¿Tienes pensamientos repetitivos que te obligan a hacer acciones para calmarlos?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q7" value="A">A) Sí, seguido</label>
-          <label class="option"><input type="radio" name="q7" value="B">B) A veces</label>
-          <label class="option"><input type="radio" name="q7" value="C">C) Muy raro</label>
-          <label class="option"><input type="radio" name="q7" value="D">D) No</label>
-        </div>
-      </div>
+<div class="block">
+<strong>6. ¿Cómo calificas tu conexión emocional con otros?</strong>
+<label><input type="radio" name="q6" value="tlp"> Muy inestable</label>
+<label><input type="radio" name="q6" value="depresion"> Me cuesta conectar</label>
+<label><input type="radio" name="q6" value="normal"> Estable</label>
+</div>
 
-      <!-- 8 -->
-      <div class="q">
-        <h3>8. ¿Tus relaciones personales suelen ser muy intensas o inestables?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q8" value="A">A) Sí, mucho</label>
-          <label class="option"><input type="radio" name="q8" value="B">B) A veces</label>
-          <label class="option"><input type="radio" name="q8" value="C">C) Poco</label>
-          <label class="option"><input type="radio" name="q8" value="D">D) No</label>
-        </div>
-      </div>
+<div class="block">
+<strong>7. ¿Cómo manejas el estrés en situaciones inesperadas?</strong>
+<label><input type="radio" name="q7" value="estres"> Me afecta mucho</label>
+<label><input type="radio" name="q7" value="ansiedad"> Me pongo tenso</label>
+<label><input type="radio" name="q7" value="normal"> Lo manejo bien</label>
+</div>
 
-      <!-- 9 -->
-      <div class="q">
-        <h3>9. ¿Tienes miedos muy fuertes a cosas específicas (insectos, alturas, lugares)?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q9" value="A">A) Sí, demasiado</label>
-          <label class="option"><input type="radio" name="q9" value="B">B) A veces</label>
-          <label class="option"><input type="radio" name="q9" value="C">C) Leve</label>
-          <label class="option"><input type="radio" name="q9" value="D">D) Nada especial</label>
-        </div>
-      </div>
+<div class="block">
+<strong>8. ¿Notas pensamientos repetitivos difíciles de detener?</strong>
+<label><input type="radio" name="q8" value="toc"> Sí bastante</label>
+<label><input type="radio" name="q8" value="ansiedad"> Algunos</label>
+<label><input type="radio" name="q8" value="normal"> No mucho</label>
+</div>
 
-      <!-- 10 -->
-      <div class="q">
-        <h3>10. ¿Cómo es tu relación con la comida?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q10" value="A">A) Muy preocupante, me afecta mucho</label>
-          <label class="option"><input type="radio" name="q10" value="B">B) A veces me preocupa</label>
-          <label class="option"><input type="radio" name="q10" value="C">C) Normal</label>
-          <label class="option"><input type="radio" name="q10" value="D">D) Sana y estable</label>
-        </div>
-      </div>
+<div class="block">
+<strong>9. ¿Cómo describirías tu regulación emocional?</strong>
+<label><input type="radio" name="q9" value="bipolaridad"> Cambios drásticos</label>
+<label><input type="radio" name="q9" value="tlp"> Muy complicada</label>
+<label><input type="radio" name="q9" value="normal"> Sólida</label>
+</div>
 
-      <!-- 11 -->
-      <div class="q">
-        <h3>11. ¿En general cómo te sientes mentalmente?</h3>
-        <div class="options">
-          <label class="option"><input type="radio" name="q11" value="A">A) Mal</label>
-          <label class="option"><input type="radio" name="q11" value="B">B) Regular</label>
-          <label class="option"><input type="radio" name="q11" value="C">C) Bien</label>
-          <label class="option"><input type="radio" name="q11" value="D">D) Normal y sin problemas importantes</label>
-        </div>
-      </div>
+<div class="block">
+<strong>10. ¿Cuánta tensión física o mental sientes diariamente?</strong>
+<label><input type="radio" name="q10" value="estres"> Alta</label>
+<label><input type="radio" name="q10" value="ansiedad"> Moderada</label>
+<label><input type="radio" name="q10" value="normal"> Baja</label>
+</div>
 
-      <div class="actions">
-        <button type="submit">Ver resultado</button>
-        <button type="button" class="secondary" id="resetBtn">Reiniciar</button>
-        <div style="flex:1"></div>
-        <span class="tag">Informativo • No es diagnóstico</span>
-      </div>
-    </form>
+<button type="button" onclick="procesar()">Generar Informe</button>
+</form>
 
-    <div id="result" hidden>
-      <h3>Resultado</h3>
-      <div id="resultText" style="margin-top:8px"></div>
-      <div id="explain" style="margin-top:10px;color:var(--muted)"></div>
-    </div>
+<div id="resultado"></div>
+<canvas id="grafica"></canvas>
+</div>
 
-    <footer>
-      Si el resultado te preocupa, busca atención profesional. Este test no reemplaza una evaluación clínica.
-    </footer>
-  </div>
-
-  <script>
-    const form = document.getElementById('testForm');
-    const result = document.getElementById('result');
-    const resultText = document.getElementById('resultText');
-    const explain = document.getElementById('explain');
-    const resetBtn = document.getElementById('resetBtn');
-
-    // mapping of question -> disorder name
-    const disorders = {
-      1: 'Ansiedad generalizada',
-      2: 'Depresión',
-      3: 'Estrés postraumático (TEPT)',
-      4: 'TDAH',
-      5: 'Trastorno bipolar',
-      6: 'Ataques de pánico',
-      7: 'Trastorno obsesivo-compulsivo (TOC)',
-      8: 'Trastorno de personalidad límite (TLP)',
-      9: 'Fobias específicas',
-      10: 'Trastornos de la alimentación'
-    };
-
-    // score rules: A=2, B=1, C=0, D=0
-    function scoreFromAnswer(ans){
-      if(!ans) return 0;
-      if(ans === 'A') return 2;
-      if(ans === 'B') return 1;
-      return 0;
-    }
-
-    form.addEventListener('submit', (e)=>{
-      e.preventDefault();
-      const formData = new FormData(form);
-      // compute scores
-      let scores = {};
-      for(let i=1;i<=10;i++){
-        const val = formData.get('q'+i);
-        scores[i] = scoreFromAnswer(val);
-      }
-      // normal score based on q11 (C or D -> positive)
-      const q11 = formData.get('q11');
-      let normalScore = 0;
-      if(q11 === 'C' || q11 === 'D') normalScore = 1;
-      else if(q11 === 'A' || q11 === 'B') normalScore = -1;
-
-      // decide result
-      const maxScore = Math.max(...Object.values(scores));
-      const top = Object.keys(scores).filter(k => scores[k] === maxScore && scores[k] > 0);
-
-      let text = '';
-      let details = '';
-
-      if(top.length === 1 && maxScore >= 2){
-        // clear single strong result
-        const idx = top[0];
-        text = `Orientación: ${disorders[idx]}`;
-        details = `Has mostrado respuestas con mayor intensidad en preguntas relacionadas con ${disorders[idx]}. Esto es orientativo.`;
-      } else if(top.length > 1 && maxScore >= 2){
-        // multiple strong
-        const names = top.map(k => disorders[k]).join(', ');
-        text = `Orientación: Posible combinación de: ${names}`;
-        details = 'Varias áreas muestran puntuaciones altas; podría haber mezcla de síntomas.';
-      } else {
-        // no strong single result
-        // collect mild positives (score 1)
-        const mild = Object.keys(scores).filter(k => scores[k] === 1);
-        if(mild.length > 0){
-          const names = mild.map(k => disorders[k]).join(', ');
-          text = `Orientación leve: ${names}`;
-          details = 'Hay algunos síntomas leves en estas áreas. Observa y, si persisten, consulta a un profesional.';
-        } else if(normalScore > 0 && maxScore === 0){
-          text = 'Estoy normal / sin indicios relevantes';
-          details = 'Tus respuestas no muestran síntomas significativos en este test orientativo.';
-        } else {
-          text = 'Resultados mixtos / sin conclusión clara';
-          details = 'No hay un patrón claro de altos síntomas en una sola área. Si te preocupa, consúltalo con un especialista.';
-        }
-      }
-
-      // display breakdown
-      const breakdown = Object.keys(scores).map(k => `${disorders[k]}: ${scores[k]}`).join('<br>');
-
-      resultText.innerHTML = `<strong>${text}</strong>`;
-      explain.innerHTML = `<div>${details}</div><hr style="opacity:0.06;margin:8px 0"> <div style="font-size:13px;color:var(--muted)">Desglose (puntuación A=2, B=1, C/D=0):<br>${breakdown}</div>`;
-      result.hidden = false;
-      // scroll to result
-      result.scrollIntoView({behavior:'smooth', block:'center'});
-    });
-
-    resetBtn.addEventListener('click', ()=>{
-      form.reset();
-      result.hidden = true;
-    });
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// Nuevo cálculo: mostrar primero el trastorno más probable
-function calcularPropenso() {
-    const preguntas = document.querySelectorAll('select');
-    let puntajes = {
-        ansiedad: 0,
-        depresion: 0,
-        tept: 0,
-        tdah: 0,
-        bipolar: 0,
-        panico: 0,
-        toc: 0,
-        tlp: 0,
-        fobias: 0,
-        alimentacion: 0,
-        normal: 0
+function procesar() {
+    const data = new FormData(document.getElementById("formTest"));
+    const count = {};
+
+    for (let v of data.values()) count[v] = (count[v] || 0) + 1;
+
+    let max = null;
+    for (let k in count) if (!max || count[k] > count[max]) max = k;
+
+    const textos = {
+        ansiedad: "Podrías estar presentando exceso de tensión y preocupación.",
+        depresion: "Podrías estar sintiendo baja energía o desconexión emocional.",
+        tdah: "La concentración y la constancia podrían ser un reto.",
+        estres: "Tu cuerpo parece estar respondiendo a presión constante.",
+        toc: "Los pensamientos repetitivos podrían ocupar espacio mental.",
+        tept: "Algunas memorias difíciles podrían seguir afectándote.",
+        fobia: "Ciertos miedos podrían limitar actividades.",
+        bipolaridad: "Cambios intensos de estado anímico pueden estar presentes.",
+        tlp: "Las emociones podrían sentirse extremas o difíciles de regular.",
+        normal: "Tu estado general se percibe estable y equilibrado."
     };
 
-    // Cada pregunta suma según su categoría
-    function sumar(cat, valor) {
-        if (valor === 'A') puntajes[cat] += 3;
-        if (valor === 'B') puntajes[cat] += 2;
-        if (valor === 'C') puntajes[cat] += 1;
-    }
+    document.getElementById("resultado").innerHTML = `
+        <h2>Resultado principal: <strong>${max.toUpperCase()}</strong></h2>
+        <p>${textos[max]}</p>
+    `;
 
-    sumar('ansiedad', preguntas[0].value);
-    sumar('depresion', preguntas[1].value);
-    sumar('tept', preguntas[2].value);
-    sumar('tdah', preguntas[3].value);
-    sumar('bipolar', preguntas[4].value);
-    sumar('panico', preguntas[5].value);
-    sumar('toc', preguntas[6].value);
-    sumar('tlp', preguntas[7].value);
-    sumar('fobias', preguntas[8].value);
-    sumar('alimentacion', preguntas[9].value);
-
-    // Normal solo si responde C o D
-    if (preguntas[10].value === 'C') puntajes.normal += 2;
-    if (preguntas[10].value === 'D') puntajes.normal += 3;
-
-    // Encontrar el de mayor puntaje
-    let mayorClave = Object.keys(puntajes).reduce((a, b) => puntajes[a] > puntajes[b] ? a : b);
-
-    let nombres = {
-        ansiedad: 'Ansiedad Generalizada',
-        depresion: 'Depresión',
-        tept: 'Estrés Postraumático (TEPT)',
-        tdah: 'TDAH',
-        bipolar: 'Trastorno Bipolar',
-        panico: 'Ataques de Pánico',
-        toc: 'TOC',
-        tlp: 'Trastorno Límite de la Personalidad (TLP)',
-        fobias: 'Fobias Específicas',
-        alimentacion: 'Trastornos de la Alimentación',
-        normal: 'Sin indicios relevantes / Normal'
-    };
-
-    document.getElementById('resultado').innerHTML =
-        '<h3>Resultado más probable:</h3><strong>' + nombres[mayorClave] + '</strong>';
+    new Chart(document.getElementById("grafica"), {
+        type: "radar",
+        data: {
+            labels: Object.keys(count),
+            datasets: [{
+                data: Object.values(count),
+                borderWidth: 2,
+                fill: false,
+            }]
+        },
+        options: {
+            scales: { r: { beginAtZero: true } },
+            plugins: { legend: { display: false } }
+        }
+    });
 }
 </script>
 </body>
